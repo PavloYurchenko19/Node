@@ -15,8 +15,7 @@ const users = [
     {firstName: 'Andriy', lastName: 'Hnidets', age: 39, email: 'andriyhnidets@gmail.com', city: 'Lviv'},
     {firstName: 'Masha', lastName: 'Mazepa', age: 49, email: 'mashamazepa@gmail.com', city: 'Lviv'},
     {firstName: 'Rick', lastName: 'Kokosov', age: 59, email: 'rick@gmail.com', city: 'Lviv'},
-]
-
+];
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -26,29 +25,27 @@ app.set('view engine', '.hbs');
 app.engine('.hbs', engine({defaultLayout: false}));
 app.set('views', path.join(__dirname, 'static'));
 
-
 let filteredUsers = [];
 app.get('/users', (req, res) => {
     const {name, age, city} = req.query;
     if (age && city) {
-        filteredUsers = users.filter(user => user.age === parseInt(age)).filter(user => user.city === city)
+        filteredUsers = users.filter(user => user.age === parseInt(age)).filter(user => user.city === city);
     } else if (name) {
-        filteredUsers = users.filter(user => user.firstName === name)
+        filteredUsers = users.filter(user => user.firstName === name);
     } else if (age) {
-        filteredUsers = users.filter(user => user.age === parseInt(age))
+        filteredUsers = users.filter(user => user.age === parseInt(age));
     } else {
         return res.render('users', {users});
     }
-    res.render('users',{filteredUsers})
-
+    res.render('users', {filteredUsers});
 });
-app.get('/login', (req, res) => {
 
+app.get('/login', (req, res) => {
     res.render('login');
 });
 
 app.post('/login', (req, res) => {
-    let userEmail = users.filter(user => user.email === req.body.email)
+    let userEmail = users.filter(user => user.email === req.body.email);
     if (userEmail.length > 0) {
         res.redirect('/emailExist');
         return
@@ -61,10 +58,14 @@ app.get('/emailExist', (req, res) => {
     res.render('email');
 });
 
-app.get('/user/:userId' , (req,res)=>{
+app.get('/user/:userId', (req, res) => {
     const {userId} = req.params;
-    res.render('user',{users})
+    let oneUser = users[userId - 1];
+    res.render('user', {oneUser});
 })
 
+app.use((req, res) => {
+    res.render('notfound');
+})
 
 app.listen(4100);

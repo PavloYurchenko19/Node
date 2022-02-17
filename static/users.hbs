@@ -11,17 +11,23 @@
 
 <div>
     {{#each users}}
-            <div>
-                <h2>{{this.firstName}} {{this.lastName}}</h2>
-                <h2>Age:{{this.age}}</h2>
-                <h2>City:{{this.city}}</h2>
-            </div>
+        <div>
+            <h2>{{this.firstName}} {{this.lastName}}</h2>
+            <h2>Age:{{this.age}}</h2>
+            <h2>City:{{this.city}}</h2>
+            <h2>{{this.email}}</h2>
+
+        </div>
+        <hr>
     {{/each}}
+
     {{#each filteredUsers}}
         <div>
             <h2>{{this.firstName}} {{this.lastName}}</h2>
             <h2>Age:{{this.age}}</h2>
             <h2>City:{{this.city}}</h2>
+            <h2>{{this.email}}</h2>
+            <hr>
         </div>
     {{/each}}
 </div>
