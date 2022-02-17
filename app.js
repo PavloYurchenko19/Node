@@ -29,12 +29,21 @@ app.set('views', path.join(__dirname, 'static'));
 
 app.get('/users', (req, res) => {
     const {name, age, city} = req.query;
+    let filteredUsers = [];
+    if (age && city){
+        filteredUsers =users.filter(user => user.age === parseInt(age)).filter(user => user.city === city)
 
-    if (name && age || city){
+    }else if (name){
+        filteredUsers.push(users.filter(user => user.firstName === name))
+        console.log(filteredUsers);
+    }else if (age){
+        users.push(users.filter(user => user.age === parseInt(age)))
+    }else {
+
+        res.render('users', {users});
 
     }
 
-    res.render('users', {users});
 });
 app.get('/login', (req, res) => {
 
