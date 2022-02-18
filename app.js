@@ -17,6 +17,11 @@ const users = [
     {firstName: 'Rick', lastName: 'Kokosov', age: 59, email: 'rick@gmail.com', city: 'Lviv'},
 ];
 
+const sign = {
+    login: 'email@gmail.com',
+    password: '12345'
+};
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -26,6 +31,7 @@ app.engine('.hbs', engine({defaultLayout: false}));
 app.set('views', path.join(__dirname, 'static'));
 
 let filteredUsers = [];
+
 app.get('/users', (req, res) => {
     const {name, age, city} = req.query;
     if (age && city) {
@@ -62,10 +68,24 @@ app.get('/user/:userId', (req, res) => {
     const {userId} = req.params;
     let oneUser = users[userId - 1];
     res.render('user', {oneUser});
-})
+});
+
+app.get('/sing_in', (req, res) => {
+    res.render('sing_in')
+});
+
+app.post('/sing_in', (req, res) => {
+    if (req.body.login === sign.login && req.body.password === sign.password){
+
+        res.redirect('users');
+
+    }else {
+        res.redirect('notfound');
+    }
+});
 
 app.use((req, res) => {
     res.render('notfound');
-})
+});
 
 app.listen(4100);
