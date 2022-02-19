@@ -4,10 +4,12 @@ class Sign_inController {
     setData(req,res){
         console.log();
         const isLogined = users.find(user => user.email === req.body.email)
+        let oneUser = isLogined
+        console.log(oneUser);
         if (isLogined){
-            res.redirect(`user?age=${isLogined.age}`)
+            res.redirect({oneUser},`user`)
         }else {
-            console.log("nnnnn");
+            res.redirect('users')
         }
     }
     getData(req,res){
