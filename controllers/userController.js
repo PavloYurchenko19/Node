@@ -4,8 +4,9 @@ class UserController {
         res.render('users',{users})
     }
     getById(req,res){
-        const {idUser} = req.params();
-        res.render(`user/${idUser}`)
+        const {idUser} = req.params;
+        const oneUser = users[idUser - 1]
+        res.render(`user`,{oneUser})
     }
 }
 
