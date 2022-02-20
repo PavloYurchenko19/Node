@@ -2,7 +2,7 @@ const {Router} = require('express');
 
 const routes = Router();
 
-const loginRouter = require('./loginRouter')
+const loginRouter = require('./loginRouter');
 const userRouter = require('./userRouter');
 const sign_inRouter = require('./sign_inRouter');
 

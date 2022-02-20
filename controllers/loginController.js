@@ -8,11 +8,12 @@ class LoginController {
 
             return res.redirect('users');
         }
-        res.redirect('notFound');
+        res.render('notFound');
     }
     getData(req,res){
         res.render('login');
     }
+
 }
 
 module.exports = new LoginController;
